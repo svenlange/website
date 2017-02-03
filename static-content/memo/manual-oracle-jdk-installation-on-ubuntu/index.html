@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Manual Oracle JDK installation on Ubuntu</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/manual-oracle-jdk-installation-on-ubuntu/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Manual Oracle JDK installation on Ubuntu</h1>
+
+<p itemprop="description">This memo describes how to manually install an Oracle JDK on Ubuntu 13.10. Its also works for 14.04.</p>
+
+
+<p>The first step is to download the desired Oracle JDK as .tar.gz file from the oracle.com website. Afterwards extract the downloaded file.</p>
+
+<pre>
+cd /usr/lib/jvm
+wget http://oracle.com/.../myjdk.tar.gz
+tar xf myjdk.tar.gz
+</pre>
+
+<h2>Install and config</h2>
+<p>Use update-alternatives to create symbolic links to the new JDK.</p>
+
+<p>The 1 in the end is the priority. When a link group is in automatic mode, the alternatives pointed to by members of the group will be those which have the highest priority.</p>
+
+<pre>
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/myjdk/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/myjdk/bin/javac" 1
+sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/myjdk/bin/javaws" 1
+sudo update-alternatives --install "/usr/bin/jar" "jar" "/usr/lib/jvm/myjdk/bin/jar" 1
+
+# The following is obsolete if there are no alternatives
+
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+sudo update-alternatives --config javaws
+sudo update-alternatives --config jar
+</pre>
+
+<h3>Firefox Plugin</h3>
+<pre>
+cd /usr/lib/mozilla/plugins # ~/.mozilla/plugins/ is also possible
+ln -s /usr/lib/jvm/myjdk/jre/lib/i386/libnpjp2.so libnpjp2.so
+</pre>
+
+<h2>Final steps and verification</h2>
+<p>Set a symlink for the $JAVA_HOME variable with the following command.</p>
+
+<pre>
+sudo ln -s /usr/lib/jvm/myjdk /usr/lib/jvm/jdk1.7.0
+</pre>
+
+<p>Globally create the JAVA_HOME system environment variable with</p>
+
+<pre>
+vi /etc/profile
+</pre>
+
+<p>... and add the following</p>
+
+<pre>
+export JAVA_HOME="/usr/lib/jvm/jdk1.7.0"
+# ... and more stuff if you like for example maven opts
+export MAVEN_OPTS="-Xmx2G -XX:MaxPermSize=1G"
+</pre>
+
+<p>To verify everything went well execute the following commands.</p>
+
+<pre>
+java -version
+javac -version
+</pre>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2014-04-16</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2014-04-16</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Linux, JDK, ubuntu</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

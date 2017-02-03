@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Avoid name collision in Ecore generated from XSD</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/avoid-name-collision-in-ecore-generated-from-xsd/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Avoid name collision in Ecore generated from XSD</h1>
+
+<p itemprop="description">This memo shows how to avoid name collision in Ecore generated from XSD</p>
+
+<p>If you are confronted with the following log warning message you are facing a name collision in an Ecore generated from a XSD.</p>
+
+<pre>
+WARN  OawXSDEcoreBuilder - Name Conflict: Created EAttribute
+'group1', EAttribute 'group' is in the way.
+Container1:/EPackage'example'/EClass'Frucht',
+Container2:/EPackage'example'/EClass'Apfel'
+</pre>
+
+<p>As the XSD <em>choice</em> tag has no name attribute the org.eclipse.xsd.ecore.XSDEcoreBuilder will set the corresponding EAttribute name to 'group' by default. Well this happens when the choice tag also has the attribute maxOccurs="unbounded".</p>
+
+<p>The following code snippet will reproduce such a log warning message.</p>
+
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;schema xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot;
+  xmlns:example=&quot;http://www.example.com/blah&quot;
+  targetNamespace=&quot;http://www.example.com/blah&quot;&gt;
+
+  &lt;complexType name=&quot;Frucht&quot;&gt;
+    &lt;choice maxOccurs=&quot;unbounded&quot;&gt;
+      &lt;element name=&quot;a&quot; type=&quot;string&quot;/&gt;
+    &lt;/choice&gt;
+  &lt;/complexType&gt;
+
+  &lt;complexType name=&quot;Apfel&quot;&gt;
+    &lt;complexContent&gt;
+      &lt;extension base=&quot;example:Frucht&quot;&gt;
+        &lt;choice maxOccurs=&quot;unbounded&quot;&gt;
+          &lt;element name=&quot;b&quot; type=&quot;string&quot;/&gt;
+        &lt;/choice&gt;
+      &lt;/extension&gt;
+    &lt;/complexContent&gt;
+  &lt;/complexType&gt;
+&lt;/schema&gt;
+</pre>
+
+<p>To prevent this collision one can add the Ecore namespace to the XSD file and add a name attribute to the choice tag.</p>
+
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;schema xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot;
+  xmlns:example=&quot;http://www.example.com/blah&quot;
+  targetNamespace=&quot;http://www.example.com/blah&quot;
+  xmlns:ecore=&quot;http://www.eclipse.org/emf/2002/Ecore&quot;&gt;
+
+  &lt;complexType name=&quot;Frucht&quot;&gt;
+    &lt;choice maxOccurs=&quot;unbounded&quot;&gt;
+      &lt;element name=&quot;a&quot; type=&quot;string&quot;/&gt;
+    &lt;/choice&gt;
+  &lt;/complexType&gt;
+
+  &lt;complexType name=&quot;Apfel&quot;&gt;
+    &lt;complexContent&gt;
+      &lt;extension base=&quot;example:Frucht&quot;&gt;
+        &lt;choice maxOccurs=&quot;unbounded&quot; ecore:name=&quot;apfelChoice&quot;&gt;
+          &lt;element name=&quot;b&quot; type=&quot;string&quot;/&gt;
+        &lt;/choice&gt;
+      &lt;/extension&gt;
+    &lt;/complexContent&gt;
+  &lt;/complexType&gt;
+&lt;/schema&gt;
+</pre>
+
+<p>With the additional ecore:name attribute the corresponding EAttribute won't receive the name group anymore and there is no conflict.</p>
+
+<h2>References</h2>
+<ul>
+    <li><a href="http://www.openarchitectureware.org/forum/viewtopic.php?showtopic=11540">http://www.openarchitectureware.org/forum/viewtopic.php?showtopic=11540</a></li>
+    <li><a href="http://www.eclipse.org/modeling/emf/docs/overviews/XMLSchemaToEcoreMapping.pdf">http://www.eclipse.org/modeling/emf/docs/overviews/XMLSchemaToEcoreMapping.pdf</a> (<a href="http://www.svenlange.co.za/2013/01/avoid-name-collision-in-ecore-generated-from-xsd/xmlschematoecoremapping/" rel="attachment wp-att-594">XMLSchemaToEcoreMapping</a>)</li>
+</ul>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-01-16</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-01-16</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Modeling, Ecore, OawXSDEcoreBuilder, XSD</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

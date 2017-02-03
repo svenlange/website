@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Xtend Active Annotation for measuring and logging method execution times</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/xtend-active-annotation-for-measuring-and-logging-method-execution-times/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Xtend Active Annotation for measuring and logging method execution times</h1>
+
+<p itemprop="description">This memo shows an example implementation of an Xtend Active Annotation that adds method execution time logging to every method. This example is based on Xtend 2.7.3.</p>
+
+<p>If you have the following Xtend code and want some profiling for every method an Active Annotation can be handy. Just add the <code>ProfileMethods</code> annotation. The annotation points to a <code>Processor</code> that can influence the Xtend to Java transformation. It is necessary that the active annotation exists only in its own Eclipse project. Active Annotations can not exist in the same project as the annotated Xtend classes.</p>
+<pre>
+@ProfileMethods
+class RandomClass {
+  def methode() {
+    // some heavy and time consuming calculation
+  }
+}
+</pre>
+
+<p>Have a look at the Active Annotation pointing to the <code>Processor</code> named ProfileMethodsClassProcessor.</p>
+<pre>
+package za.co.svenlange.xtend.example
+import org.eclipse.xtend.lib.macro.Active
+
+@Active(ProfileMethodsClassProcessor)
+annotation ProfileMethods {}
+</pre>
+
+<p>Here is the Processor.</p>
+<pre>
+package za.co.svenlange.xtend.example
+
+import java.util.logging.Logger
+import org.eclipse.xtend.lib.macro.AbstractClassProcessor
+import org.eclipse.xtend.lib.macro.TransformationContext
+import org.eclipse.xtend.lib.macro.declaration.MutableClassDeclaration
+import static org.eclipse.xtend.lib.macro.declaration.Visibility.PRIVATE
+
+class ProfileMethodsClassProcessor extends AbstractClassProcessor {
+
+    override doTransform(MutableClassDeclaration it, extension TransformationContext context) {
+        addLoggerToClass(context)
+        addLoggingToAllMethods(context)
+    }
+
+    def private void addLoggerToClass(MutableClassDeclaration annotatedClass, extension TransformationContext context) {
+        annotatedClass.addField("LOGGER") [
+            static = true
+            final = true
+            type = Logger.newTypeReference()
+            initializer = ['''Logger.getLogger(«annotatedClass.qualifiedName».class.getName());''']
+            primarySourceElement = annotatedClass
+        ]
+    }
+
+    def private void addLoggingToAllMethods(MutableClassDeclaration it, extension TransformationContext context) {
+        declaredMethods.forEach [ method |
+            addMethod(method.simpleName + 'Delegate') [
+                visibility = PRIVATE
+                returnType = method.returnType
+                docComment = method.docComment
+                static = method.static
+                body = method.body
+                for (p : method.parameters) {
+                    addParameter(p.simpleName, p.type)
+                }
+                exceptions = method.exceptions
+                primarySourceElement = method
+            ]
+            method.body = [
+                '''
+                    long start = System.currentTimeMillis();
+                    try {
+                      «if(!method.returnType.void) "return "»«method.simpleName + 'Delegate'»(«method.parameters.map[simpleName].join(", ")»);
+                    } finally {
+                      LOGGER.info("Executing method '«method.simpleName»' took: " + (System.currentTimeMillis() - start) + " milliseconds.");
+                    }
+                '''
+            ]
+        ]
+    }
+
+}
+</pre>
+
+<p>The resulting Java code looks like this.</p>
+<pre>
+import java.util.logging.Logger;
+import za.co.svenlange.xtend.example.ProfileMethods;
+
+@ProfileMethods
+@SuppressWarnings("all")
+public class RandomClass {
+  public Object methode() {
+    long start = System.currentTimeMillis();
+    try {
+      return methodeDelegate();
+    } finally {
+      LOGGER.info("Executing method 'methode' took: " + (System.currentTimeMillis() - start) + " milliseconds.");
+    }
+  }
+
+  private final static Logger LOGGER = Logger.getLogger(co.za.svenlange.activeannotationsinaction.RandomClass.class.getName());;
+
+  private Object methodeDelegate() {
+    return null;
+  }
+}
+</pre>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-06-26</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2014-12-27</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Xtend, Active Annotation, Profiling</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

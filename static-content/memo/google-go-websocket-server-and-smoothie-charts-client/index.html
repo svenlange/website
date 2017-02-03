@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Google Go Websocket server and Smoothie Charts client</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/google-go-websocket-server-and-smoothie-charts-client/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Google Go Websocket server and Smoothie Charts client</h1>
+
+<p itemprop="description">Google Go Websocket server and Smoothie Charts client</p>
+
+
+<p>Recently I enjoyed getting my hands dirty with <a href="http://golang.org/">Google Go</a> a fairly new GPL targeted at systems programming. To get to know the language a little better I came up with the idea to program a websocket server that sends out some data to a browser that visualizes those in a chart. I got the inspiration for this from <a href="http://joewalnes.com/2010/08/10/introducing-smoothie-charts/">Joe Walnes blog entry</a> about <a href="http://smoothiecharts.org/">Smoothie Charts</a>. Smoothie Charts is a little JavaScript library to visualize real-time data in a <a href="http://en.wikipedia.org/wiki/Canvas_element">HTML5 canvas</a>.</p>
+<p>The <a href="https://github.com/svenlange/websocket/blob/master/server/server.go">websocket server implementation</a> is pretty simple as Go already has some build-in <a href="http://golang.org/pkg/websocket/">websocket support</a>. The server sends out the sine function with a value range from -1 to +1 to the client. The result can be seen in the following pictures and all source code be downloaded from github: <a href="https://github.com/svenlange/websocket">https://github.com/svenlange/websocket</a></p>
+
+<p>
+    Sinus Smoothie Chart. New value every 500ms. Alternation +0.05<br/>
+    <img src="sinusSmoothieChart1.png" alt="Sinus Smoothie Chart" width="411" height="275" />
+</p>
+
+<p>
+    Sinus Smoothie Chart under heavy load. New value every 5ms. Alternation +0.01<br/>
+    <img src="sinusSmoothieChartHeavyLoad1.png" alt="Sinus Smoothie Chart under heavy load" width="417" height="275" />
+</p>
+
+<p>The second pictures sine curve looks a bit creepy because my computers CPU utilization was at a maximum and somehow my computer was not able to take a better screenshot. The chart was smoother on my monitor.</p>
+<p>This setup/technology could maybe be used to visualize <em>real-time</em> stock exchange trends or the current bandwidth utilization in a data center etc. within a browser. Very nice.</p>
+<p>Thanks to Gary Burd for his <a href="http://gary.beagledreams.com/page/go-websocket-chat">websocket example</a>. It helped me to get my job done.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2011-02-20</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2011-02-20</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Frontend, Server, Google Go, HTML5, Smoothie Charts, Websocket</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

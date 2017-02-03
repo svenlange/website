@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Give the tomcat a bit more memory</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/give-the-tomcat-a-bit-more-memory/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Give the tomcat a bit more memory</h1>
+
+<p itemprop="description">This memo explains how to increase the permgen memory for a tomcat server.</p>
+
+
+
+<p>If Tomcat needs more memory than you have to add the following line to the catalina config file.</p>
+
+<h2>Windows (catalina.bat)</h2>
+
+<pre>
+set JAVA_OPTS=%JAVA_OPTS% -server -Xms512M -Xmx768M -XX:MaxPermSize=128m
+</pre>
+
+<p>Grails 1.2 default PermGen memory is set to 96MB. The Sun JVMs default is 64MB. (<a href="http://java.sun.com/javase/technologies/hotspot/vmoptions.jsp">Java HotSpot VM Options</a>)</p>
+
+<p><img class="size-medium wp-image-78 aligncenter" title="Memory" src="/memo/give-the-tomcat-a-bit-more-memory/memory.jpg" alt="Memory" width="500" height="226" /></p>
+
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-01-15</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-01-15</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Server, Memory, Tomcat</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

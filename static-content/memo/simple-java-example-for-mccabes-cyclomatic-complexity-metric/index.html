@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <title>Simple Java example for McCabes cyclomatic complexity metric</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/simple-java-example-for-mccabes-cyclomatic-complexity-metric/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Simple Java example for McCabes cyclomatic complexity metric</h1>
+
+<p itemprop="description">TBD: Description</p>
+
+<pre>
+public class EineKlasse {
+    void method() {
+        if (a) {
+            // Node 1
+            return;
+        }
+        if (b) {
+            // Node 2
+            if (d) {
+                // Node 3
+                for (int i = 0; i < 10; i++) {
+                    // Node 4
+                }
+            } else {
+                // Node 5
+            }
+        } else if (c) {
+            // Node 6
+        } else {
+            // Node 7
+        }
+    }
+}
+</pre>
+
+<p>pmd and checkstyle say that a complexity of 1 to 4 is ok, 5 to ? acceptable and everything above should be improved.</p>
+
+<p>
+    <a href="http://checkstyle.sourceforge.net/config_metrics.html">http://checkstyle.sourceforge.net/config_metrics.html</a><br/>
+    <a href="http://pmd.sourceforge.net/pmd-5.0.0/rules/java/codesize.html">http://pmd.sourceforge.net/pmd-5.0.0/rules/java/codesize.html</a>
+</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2012-09-22</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2012-09-22</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Quality, McCabe, Java, Cyclomatic Complexity</span></small>
+</p>
+
+<footer></footer>
+
+</body>
+</html>

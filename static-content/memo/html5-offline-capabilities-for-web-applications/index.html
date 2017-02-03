@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>HTML5 offline capabilities for web applications</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/html5-offline-capabilities-for-web-applications/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">HTML5 offline capabilities for web applications</h1>
+
+<p>Inspired by a <a href="http://www.meetup.com/GTUG-Campout">HTML5 GTUG-Campout Meeting</a> I decided to play around a little with HTML5. In this post I will show an example how to create book instances in a book management web application while being offline and push all the books into the database by the time the user is online again.</p>
+
+<p>The use case for my little example is the following: A user is offline and wants to enter some new books into a book management web application.</p>
+
+<p>OK the first question that arises is: How can a client detect whether it is on- or offline? The answer is it shouldn't be automatically and you can find a good answer to that <a href="http://code.google.com/intl/de-DE/apis/gears/gears_faq.html#isOnlineFunction">here</a>. So the user needs to be aware whether he is online or not and triggers a syncronisation with the web server by himself.</p>
+
+<p>In HTML5 you have a client side storage where you can place stuff. It is a key/value pair storage with a maximum size of 5MB per <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#origin-0">origion</a>. To persist an object (in my example a book) you best better use <a href="http://stage.json.org/js.html">JSON</a>. The following code snipplet shows a JavaScript function called <em>preserve</em> that collects all entered details for a book from an input page and places the result in the local storage. The local storage can be accessed with <em>localStorage </em>as you can see in line 15.</p>
+
+<pre>
+function preserve() {
+
+	function getValueById(id) {
+		return document.getElementById(id).value;
+	}
+
+	var JSONbook = {
+		"title" : getValueById("title"),
+		"isbn" : getValueById("isbn"),
+		"author" : getValueById("author1")
+	};
+
+	var bookString = JSON.stringify(JSONbook);
+
+	localStorage.setItem(localStorage.length + 1, bookString);
+}
+</pre>
+
+<p>Due to the fact that you can only place strings into the key/value store one has to convert the JSON object into a string. This can be achivied with the help of the following free <a href="http://www.json.org/json2.js">javascript stringifier/parser</a> which I use here in line 13.</p>
+
+<p>Of course <em>localStorage.length + 1</em> is not a good way to generate a key, but for this experimental example it suits the needs.</p>
+
+<p>So now when a user is back online and decides he wants to push all the newly created books into the database server a little Javascript like the following could do the job for him. For example by clicking on a button the <em>persistAllBooks</em> gets invoked. This function sequentially reads all book objects from the localStorage and calls the <a href="http://stackoverflow.com/questions/133925/javascript-post-request-like-a-form-submit">post_to_url</a> function for each book. <em>post_to_url</em> builds up a form, fills it with the books attributes and pushes them to the server.</p>
+
+<pre>
+function persistAllBooks() {
+	for (var i = 1; i <= localStorage.length; i++) {
+		var item = localStorage.getItem(i);
+		var parse = JSON.parse(item);
+		post_to_url(parse);
+	}
+
+}
+
+function post_to_url(params) {
+	var form = document.createElement("form");
+	form.setAttribute("method", "post");
+	form.setAttribute("action", "/bookmngt/book/save");
+
+	for (var key in params) {
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", key);
+		hiddenField.setAttribute("value", params[key]);
+
+		form.appendChild(hiddenField);
+	}
+
+	document.body.appendChild(form);
+	form.submit();
+}
+</pre>
+
+<p>Thats it. Of cource the book creation page needs to be <a href="http://diveintohtml5.org/offline.html">offline</a> available to the client and HTML5 is helping here too.</p>
+
+<p>Thanks to <a href="http://www.thomas-asel.de">Thomas Asel</a> for brainstorming and talking about HTML5 which led to this post.</p>
+
+<h2>HTML5 Resources</h2>
+
+<p>The following list contains some good HTML5 resources I found on the net while experimenting a little.</p>
+Dive Into HTML 5 - <a href="http://diveintohtml5.org/">diveintohtml5.org</a><br/>
+Browsers with Wings - <a href="http://www.slideshare.net/remy.sharp/browsers-with-wings">slideshare.net/remy.sharp/browsers-with-wings</a><br/>
+HTML5 on Wikipedia - <a href="http://en.wikipedia.org/wiki/HTML5">en.wikipedia.org/wiki/HTML5</a><br/>
+"Offline": What does it mean and why should I care? - <a href="http://www.html5rocks.com/tutorials/offline/whats-offline/">stage.html5rocks.com/tutorials/offline/whats-offline</a>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-08-15</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-08-15</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Frontend, HTML5, localStorage</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

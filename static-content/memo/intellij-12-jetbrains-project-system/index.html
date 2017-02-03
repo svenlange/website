@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>IntelliJ 12 JetBrains Project System</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/intellij-12-jetbrains-project-system/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">IntelliJ 12 JetBrains Project System</h1>
+
+<p itemprop="description">This memo shows what happens within the new IntelliJ 12 JPS build system if a user triggers the "Make Project" action in the IntelliJ IDE. This post is based on IntelliJ 12.1.1 (IC-129.239).</p>
+
+
+<p>The entry point into IntelliJs new build system is the class <a href="https://github.com/JetBrains/intellij-community/blob/idea/129.239/jps/jps-builders/src/org/jetbrains/jps/cmdline/BuildMain.java">BuildMain</a>. In here you can find an inner class called MyMessageHandler that receives controller messages. Depending on the type of a controller message different actions take place. There are four different controller message types.
+<ul>
+    <li>BUILD_PARAMETERS</li>
+    <li>FS_EVENT</li>
+    <li>CONSTANT_SEARCH_RESULT</li>
+    <li>CANCEL_BUILD_COMMAND</li>
+</ul>
+<p>In the case that a project build was triggered the first controller message type is BUILD_PARAMETERS. This type causes that a new <a href="https://github.com/JetBrains/intellij-community/blob/idea/129.239/jps/jps-builders/src/org/jetbrains/jps/cmdline/BuildSession.java">BuildSession</a> is created and executed. The BuildSession holds information about the build process. One important participant is the <a href="https://github.com/JetBrains/intellij-community/blob/idea/129.239/jps/jps-builders/src/org/jetbrains/jps/cmdline/BuildSession.java">BuildRunner</a>. The BuildRunner instantiates and executes an <a href="https://github.com/JetBrains/intellij-community/blob/idea/129.239/jps/jps-builders/src/org/jetbrains/jps/incremental/IncProjectBuilder.java">IncProjectBuilder</a>. Now it is getting interesting, because now really something is happening. Before the IncProjectBuilder there was only instantiation and setup work going on. Now builders and tasks get executed in the following order.</p>
+<ol>
+    <li>TargetBuilder (Build started)</li>
+    <li>ModuleLevelBuilder (Build started)</li>
+    <li>Running 'before' tasks</li>
+    <li>Checking sources (BUILDERS GET EXECUTED!)</li>
+    <li>Running 'after' tasks</li>
+    <li>TargetBuilder (Build finished)</li>
+    <li>ModuleLevelBuilder (Build finished)</li>
+</ol>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-05-27</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-05-27</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">IntelliJ, JPS</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Remove user from cache in Grails app using Acegi Plugin</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/remove-user-from-cache-in-grails-app-using-acegi-plugin/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Remove user from cache in Grails app using Acegi Plugin</h1>
+
+<p itemprop="description">This memo shows how to remove a user from cache in a Grails application using Acegi Plugin</p>
+
+
+<p>The <a href="http://grails.org/plugin/acegi">Grails Acegi Plugin</a> has <a href="http://static.springsource.org/spring-security/site/docs/2.0.x/apidocs/org/springframework/security/providers/dao/cache/EhCacheBasedUserCache.html">user caching</a> activated by default. If you make any changes to a user those changes won't be available immediately. Here are two solutions to change this behavior.</p>
+
+<h2>Remove the user from cache</h2>
+
+<p>The Acegi plugin provides a userCache bean which can be injected automatically. With a <em>removeUserFromCache </em>method call on the userCache bean a user can be removed from the cache.  The next time the user is requested by the system the user will be retrieved from the database and all updates to the instance are available immediately. Following code fragment shows the described solution.</p>
+
+<pre>
+def userCache
+
+def someAction = {
+	GrailsUser user = authenticateService.principal() as GrailsUser
+	userCache.removeUserFromCache(user)
+}
+</pre>
+
+<h2>Disable the cache</h2>
+
+<p>The second solution is to simply disable the cache. This should not have any impact on applications with little usage. This of cause increases the communication between your application and a database server. To disable the cache add the following line of code to the &lt;app-root&gt;/grails-app/conf/SecurityConfig.groovy file.</p>
+
+<pre>
+cacheUsers = false
+</pre>
+
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-12-04</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-12-04</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Grails, Acegi, Cache, Grails</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

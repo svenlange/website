@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Using storeXPath() in your Grails Webtest</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/using-storexpath-in-your-grails-webtest/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Using storeXPath() in your Grails Webtest</h1>
+
+<p>Today I had to figure out how to save some content from a site during a running Webtest so that I am able to restore all changed data afterwards. Luckily Webtest provides the step storeXPath() which does the job.</p>
+
+<p>But it was not that easy to realize my task due to the lack of good documentation and finding the correct xpath expression.</p>
+
+<p>The following code snippet grabs the text value from a text input field with the id surname and saves it in the ant property xyz.</p>
+
+<pre>
+def testSomething() {
+  webtest('Some description') {
+    // saving initial value
+    storeXPath(xpath: "id('surname')/@value", property: "xyz")
+    // restore initial value
+    setInputField(name: "surname", value: "#{xyz}")
+  }
+}
+</pre>
+
+<p>Pretty simple in the end, but it took a while till I got it. Maybe it helps someone.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2008-07-11</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2008-07-11</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Grails, Testing, storeXPath, Webtest</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

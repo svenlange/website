@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Xtend lambda expression type definitions with and without syntactic sugar</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/xtend-lambda-expression-type-definitions-with-and-without-syntactic-sugar/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Xtend lambda expression type definitions with and without syntactic sugar</h1>
+
+<p>The usual or shortest way to write a lambda expression in Xtend is to leave out the type information. Xtend2 works with <em>local type inference</em> so there is no need to explicitly write down the type.</p>
+
+<pre>
+val myFunction = [String a, String b | a.compareTo(b)]
+</pre>
+
+<p>There is a special short syntax for lamda expression type definitions in Xtend2 that looks like the following.</p>
+
+<pre>
+val (String, String)=>int myFunction = [String a, String b | a.compareTo(b)]
+</pre>
+
+<p>The most verbose way to write a lambda expression in Xtend2 is the following. It has the long full type definition and also the optional round brakets around the expression itself.</p>
+
+<pre>
+import org.eclipse.xtext.xbase.lib.Functions.Function2
+
+val Function2&lt;String,String,Integer&gt; myFunction = ([String a, String b | a.compareTo(b)])
+</pre>
+
+<p>In the last and most verbose example one can see that the <em>local type inference</em> is really helpful as the first example is a lot easier to read.</p>
+
+<p>The examples were written and tested with Xtend 2.2.1</p>
+
+<h2>References</h2>
+<ul>
+    <li><a href="https://groups.google.com/d/topic/xtend-lang/QPynGi3ffxg/discussion">https://groups.google.com/d/topic/xtend-lang/QPynGi3ffxg/discussion</a></li>
+    <li><a href="http://www.eclipse.org/xtend/documentation.html">http://www.eclipse.org/xtend/documentation.html</a></li>
+</ul>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2012-09-05</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2012-09-05</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Languages, closures, lambda expressions, Xtend</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

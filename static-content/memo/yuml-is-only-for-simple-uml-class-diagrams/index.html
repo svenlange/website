@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>yUML is only for simple UML class diagrams</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/yuml-is-only-for-simple-uml-class-diagrams/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">yUML is only for simple UML class diagrams</h1>
+
+<p itemprop="description">yUML is only for simple UML class diagrams</p>
+
+
+<p>I sat down for a while and extended the <a href="http://www.grails.org/plugin/create-domain-uml">Grails Create Domain UML Plugin</a> that I wrote about a couple month ago <a href="/memo/generating-uml-class-diagrams-from-grails-domain-model/">in this post</a>. This plugin helps to generate <a href="http://en.wikipedia.org/wiki/Class_diagram">UML class diagrams</a> with <a href="http://yuml.me/">yUML</a> from a Grails domain model. Unfortunately the diagrams don't show aggregations or compositions and the associations don't have a name. I fixed that, but the generated diagrams are not really useable, because yUML is only for very simple UML class diagrams as you can see in the following pictures.</p>
+
+<img src="yuml_topDown.png" alt="Neat top down"/><br/>
+
+<img src="yuml_leftRight.png" alt="Neat left right"/>
+
+<p>Conclusion: yUML looks nice, but is only usable for very simple diagrams.</p>
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-12-28</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-12-28</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Grails, UML, yUML</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

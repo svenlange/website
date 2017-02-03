@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Create Ubuntu launch icon for Eclipse</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/create-ubuntu-launch-icon-for-eclipse/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Create Ubuntu launch icon for Eclipse</h1>
+
+<p itemprop="description">This memo describes how to create a launch icon for Eclipse under Ubuntu 14.04.</p>
+
+
+<p>Open terminal and type:</p>
+<pre>sudo vi /usr/share/applications/eclipse.desktop</pre>
+
+<p>Insert and adjust the follwing content:</p>
+
+<pre>
+[Desktop Entry]
+Name=Eclipse 4
+Type=Application
+Exec=/opt/eclipse/eclipse
+Terminal=false
+Icon=/opt/eclipse/icon.xpm
+Comment=Integrated Development Environment
+NoDisplay=false
+Categories=Development;IDE;
+Name[en]=Eclipse
+</pre>
+
+<p>Done.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2014-09-19</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2014-09-19</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Ubuntu, Eclipse</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Silverlight testing landscape</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/silverlight-testing-landscape/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Silverlight testing landscape</h1>
+
+<p>I did some research to find out how to test Silverlight 3 applications. I wanted to have an automated build on a CI server (TeamCity) that does some unit and integration testing plus a code coverage report. Soon I saw that there are a lot of tools and frameworks out there. To get an overview of whats available and useful, I started the following list. Feel free to share your thoughts.</p>
+
+<h2>Testing Frameworks</h2>
+
+<ul>
+    <li><a href="http://code.msdn.microsoft.com/silverlightut">Silverlight Unit Test Framework (SLUT)</a> included in the <a href="http://silverlight.codeplex.com/">Silverlight Toolkit </a>
+        <ul>
+            <li><a href="http://www.jeff.wilcox.name/2009/11/november-walkthrough/">Code Coverage Howto</a></li>
+            <li><a href="http://www.msteched.com/2010/NorthAmerica/WEB205">Tech Ed 2010 - Unit Testing in Microsoft Silverlight (Video)</a></li>
+            <li><a href="http://www.jeff.wilcox.name/blog/">Jeff Wilcox - Blog of the developer behind the framework</a></li>
+        </ul>
+    </li>
+    <li><a href="http://www.nunit.org/">NUnit</a></li>
+    <li><a href="http://www.mbunit.com">MBUnit</a></li>
+    <li><a href="http://xunit.codeplex.com/">xUnit.net - Unit Testing for .NET</a></li>
+    <li><a href="http://cthru.codeplex.com/">CThru and SilverUnit</a>
+        <ul>
+            <li><a href="http://site.typemock.com/silverlight_unit_testing_page">Unit Testing Silverlight with SilverUnit (Video)</a></li>
+        </ul>
+    </li>
+    <li><a href="http://testapi.codeplex.com/">TestApi - a library of Test APIs</a></li>
+    <li><a href="http://www.jetbrains.com/dotcover">dotCover – .NET Code Coverage Tool</a></li>
+    <li><a href="http://www.ncover.com/">NCover - Code Coverage for .NET Developers</a></li>
+    <li><a href="http://white.codeplex.com/">White - Framework for automating rich client applications based on many different platforms</a>
+        <ul>
+            <li>Seems not very mature</li>
+            <li>Silverlight 3 not offically supported yet as of 31 Oct 2010</li>
+        </ul>
+    </li>
+    <li><a href="http://statlight.codeplex.com">StatLight - Silverlight Testing Automation Tool</a></li>
+    <li><a href="http://www.telerik.com/automated-testing-tools.aspx">Telerik - Automated Testing Tools for Web Application Testing</a> (<a href="http://tv.telerik.com/watch/automated-testing-tools/telerik-webui-test-studio-qa-edition-silverlight-testing-best-practices">Webcast</a>)
+        <ul>
+            <li>WebUI Test Studio QA Edition – $2,499 USD</li>
+            <li>WebUI Test Studio Developer Edition – $1,499 USD</li>
+            <li>WebUI Test Studio Bundle – $2,999 USD</li>
+        </ul>
+    </li>
+    <li><a href="http://www.telerik.com/products/web-testing-tools/webaii-framework-features.aspx">Telerik free WebAii Testing Framework</a></li>
+    <li><a href="http://code.google.com/p/silverlight-selenium/">silverlight-selenium</a>
+        <ul>
+            <li>Too old</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>IDE Extensions</h2>
+<ul>
+    <li><a href="http://www.jetbrains.com/resharper">ReSharper - Visual Studio productivity tool</a>
+        <ul>
+            <li><a href="http://agunit.codeplex.com">AgUnit - Silverlight unit testing with ReSharper</a></li>
+        </ul>
+    </li>
+    <li><a href="http://www.jetbrains.com/profiler/">dotTrace - Performance and Memory Profiler</a></li>
+    <li><a href="http://www.testdriven.net">TestDriven.Net - Zero Friction Unit Testing Add-In</a></li>
+    <li>Telerik JustCode - Plug-in for Real Time Code Analysis</li>
+    <li><a href="http://www.typemock.com/typemock-isolator-product3/">Typemock Unit Testing Tools - Isolator 2010 (Test any code, ..., Increase coverage)</a></li>
+    <li><a href="http://www.red-gate.com/products/dotnet_tools_overview.htm">Red Gate .NET Developer Bundle </a>
+        <ul>
+            <li>ANTS Performance Profiler Pro - Identify bottlenecks and ensure code is performing optimally</li>
+            <li>ANTS Memory Profiler - Find and fix memory leaks in your .NET applications</li>
+            <li>Exception Hunter - Locate the unhandled exceptions your method can throw</li>
+            <li>.NET Reflector Pro - Seamlessly debug into third-party code and assemblies, even if you don't have the source code for them</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>Mocking</h2>
+<p>An interesting page about mock frameworks can be found <a href="http://stackoverflow.com/questions/2637066/rhino-mock-vs-typemock-vs-justmock-vs">here</a>. One guy there is saying moq has a much cleaner API than Rhino by similar capabilities. Also the guy behind SLUT recommends moq.</p>
+<ul>
+    <li><a href="http://www.telerik.com/products/mocking.aspx">JustMock Telerik</a></li>
+    <li><a href="http://code.google.com/p/moq/">moq - Mocking library for .NET 3.5 and Silverlight with deep C# 3.0 integration</a></li>
+    <li><a href="http://ayende.com/projects/rhino-mocks.aspx">Rhino Mocks - A dynamic mock object framework for the .Net platform</a></li>
+    <li><a href="http://research.microsoft.com/en-us/projects/pex/default.aspx">Pex and Moles - Isolation and White box Unit Testing for .NET</a>
+        <ul>
+            <li><a href="http://research.microsoft.com/en-us/projects/moles/">Moles - Isolation framework for .NET</a></li>
+        </ul>
+    </li>
+</ul>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-11-05</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-11-05</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Testing, Coverage, Mocking, Silverlight</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

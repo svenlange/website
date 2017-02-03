@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Functional JVM language APIs side-by-side</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/functional-jvm-language-apis-side-by-side/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <header>
+    <a href="/">Home</a>
+</header>
+
+            <h1 itemprop="headline">Functional JVM language APIs side-by-side</h1>
+
+            <table class="table">
+                <tr>
+                    <th>Description</th>
+                    <th>Clojure</th>
+                    <th>Groovy</th>
+                    <th>Java&nbsp;8</th>
+                    <th>Scala</th>
+                    <th>Xtend</th>
+                </tr>
+                <tr>
+                    <td>Select all elements of a collection that satisfy a predicate</td>
+                    <td>
+                        <pre>(filter c)</pre>
+                    </td>
+                    <td>
+                        <pre>c.findAll</pre>
+                    </td>
+                    <td>
+                        <pre>c.stream().filter()</pre>
+                    </td>
+                    <td>
+                        <pre>c.filter</pre>
+                    </td>
+                    <td>
+                        <pre>c.filter</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Build a new collection by transforming all elements of a given collection</td>
+                    <td>
+                        <pre></pre>
+                    </td>
+                    <td>
+                        <pre>c.collect</pre>
+                    </td>
+                    <td>
+                        <pre>c.stream().map()</pre>
+                    </td>
+                    <td>
+                        <pre>c.map</pre>
+                    </td>
+                    <td>
+                        <pre>c.map</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Transform a collection <i>c</i> to a map</td>
+                    <td>
+                        <pre></pre>
+                    </td>
+                    <td>
+                        <pre>c.collectEntries</pre>
+                    </td>
+                    <td>
+                        <pre></pre>
+                    </td>
+                    <td>
+<pre>
+c.groupBy()
+c.toMap()
+</pre>
+                    </td>
+                    <td>
+<pre>
+c.groupBy[computedKey]
+c.toMap[?]
+</pre>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Resources</h2>
+            <ul>
+                <li><a href="https://clojure.github.io/clojure/api-index.html">Clojure</a></li>
+                <li><a href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Collection.html">Groovy Collection</a>, <a
+                        href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Iterator.html">Groovy Iterable</a></li>
+                <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java 8</a></li>
+                <li><a href="http://www.scala-lang.org/api/current/index.html#scala.collection.Traversable">Scala</a></li>
+                <li><a href="http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.8/org/eclipse/xtext/xbase/lib/IterableExtensions.html">Xtend</a></li>
+            </ul>
+
+            <hr/>
+            <p>
+                <small>Date published: <span itemprop="datePublished">2015-07-25</span></small>
+                <br/>
+                <small>Date modified: <span itemprop="dateModified">2015-09-17</span></small>
+                <br/>
+                <small>Keywords: <span itemprop="keywords">scala, groovy, clojure, xtend, java, jvm, polyglot</span></small>
+            </p>
+
+            <footer></footer>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

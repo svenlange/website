@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Software Architecture Summit 2015 in Berlin</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/software-architecture-summit-2015-in-berlin/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <header>
+    <a href="/">Home</a>
+</header>
+
+            <h1 itemprop="headline">Software Architecture Summit 2015 in Berlin</h1>
+
+            <p itemprop="description">This memo contains some of my impressions from the <a href="http://software-architecture-summit.de">software architecture summit</a> 2015 in Berlin.</p>
+
+            <h2>Sessions</h2>
+
+            <h3>First day</h3>
+
+            <h4>Keynote: Architektur für unser Gehirn (<a href="http://www.wps.de/unternehmen/unternehmensfuehrung/carola-lilienthal.html">Dr. Carola Lilienthal</a>)</h4>
+            <p>Carola presented nothing new to me in the first keynote. The essence of the keynote was about why sustainable architectures are important and how to achieve this goal. But the way how she delivered the keynote was very good. She pointed out 3 important aspects of a good sustainable architecture:</p>
+            <ol>
+                <li>Modularität</li>
+                <li>Geordnetheit</li>
+                <li>Mustertreue</li>
+            </ol>
+            <a href="langlebige-software-architekturen_lilienthal.jpg"><img src="langlebige-software-architekturen_lilienthal-preview.jpg"/></a>
+
+            <p>It was also interesting to hear that in her opinion a software system will never or seldom pass the "one million lines of code" mark, when there is no clear structure in the architecture. Without a clear architecture it is not possible to maintain and evolve a huge software system. Too much time is burned in trying to understand how the different parts of the system interact with each other.</p>
+
+            <h4>Microservices: Architecture & Deployment with Docker (<a href="https://twitter.com/ewolff">Eberhard Wolff</a>)</h4>
+            <blockquote>
+                <p>Define architecture to limit communication needs</p>
+            </blockquote>
+
+            <a href="microservices-hype_wolff.jpg"><img src="microservices-hype_wolff-preview.jpg" width="180" height="240"/></a>
+
+            <blockquote>
+                <p>organizations which design systems ... are constrained to produce designs which are copies of the communication structures of these organizations</p>
+                <footer></footer>
+            </blockquote>
+
+            <p>E. Wolff: "Bei Architekturanalysen muss man auch auf die Organisation gucken und nicht nur auf den code."</p>
+
+            <p>Microservices können helfen kommunikationsaufwand zu verringern.</p>
+
+            <p>Die Microservices haben alles in der Hand und müssen sich nicht mit anderen Abteilungen absprechen bei Änderungen/Erweiterungen.</p>
+
+            <h5>Docker</h5>
+
+            <p>lightweight, ein kernel, der geteilt wird. sehr resourcensparend und schnell.</p>
+
+            <h4>Microservices with Java, Spring and Spring Boot Cloud (Eberhard Wolff)</h4>
+
+            <p>For microservices it is important to uniform operations:</p>
+            <ul>
+                <li>Deployment (easy (hundreds of services))</li>
+                <li>Monitoring</li>
+                <li>Logging</li>
+            </ul>
+            <p>curl http://host/some.json | json_pp :-)</p>
+
+            <p>Quite boring product show of <a href="http://projects.spring.io/spring-boot/">Spring Boot</a> and <a href="http://projects.spring.io/spring-cloud/">Spring Cloud</a>.
+            </p>
+
+            <h4>Sind Ihre (Micro-)Services lose gekoppelt? (<a href="https://twitter.com/thfro">Thilo Frotscher</a>)</h4>
+            <p>Nothing noteworthy.</p>
+
+            <h3>Second day</h3>
+
+            <h4>Langlebige Softwarearchitekturen - technische Schulden beherrschen und abbauen (Dr. Carola Lilienthal)</h4>
+            <p>tools, projekte untersuchen, metriken</p>
+
+            <h4>Keynote: From Design Thinking to DevOps and Back Again: Unifying Design and Operations (Jeffrey Sussna)</h4>
+            <p>Nothing noteworthy.</p>
+
+            <h4>ANALYZE: So finden Sie die Probleme Ihrer Software (Dr. Gernot Starke)</h4>
+            <p><a href="https://aim42.github.io">aim42</a>, Stakeholdertabelle / Fragenkatalog,
+
+            <p>ATAM -> implizietes wissen explizit machen, git analyse (am meisten geändert, ...)</p>
+
+            <p>geldbetrag (oder BWL größe) an issues schreiben, damit management freigabe für verbesserung gibt.</p>
+
+            <h3>Third day</h3>
+            <h4>Gebaut für die Cloud - Cloud-Native Architectures (<a href="http://www.ghadir.de">Phillip Ghadir</a>)</h4>
+            <p>Nothing noteworthy.</p>
+
+            <h2>Resources</h2>
+            <a href="sas_2015_zeitplan.jpg">Summit Schedule</a>
+
+            <hr/>
+            <p>
+                <small>Date published: <span itemprop="datePublished">2015-09-21</span></small>
+                <br/>
+                <small>Date modified: <span itemprop="dateModified">2015-09-21</span></small>
+                <br/>
+                <small>Keywords: <span itemprop="keywords">software architecture, microservices</span></small>
+            </p>
+
+            <footer></footer>
+        </div>
+    </div>
+</div>
+</body>
+</html>

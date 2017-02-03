@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Manually install JDK 6 on Suse Linux Enterpise Edition 10 SP2</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/manually-install-jdk-6-on-suse-linux-enterpise-edition-10-sp2/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Manually install JDK 6 on Suse Linux Enterpise Edition 10 SP2</h1>
+
+<p itemprop="description">How to manually install JDK 6 on Suse Linux Enterpise Edition 10 SP2</p>
+
+
+
+<p>First remove older and maybe protected JDKs with yast.</p>
+
+<pre>yast -&gt; Software -&gt; Software management</pre>
+
+<p>Then invoke following command on console.</p>
+
+<pre>
+./jdk-6u14-linux-i586-rpm.bin
+</pre>
+
+<p>Afterwards create file <em>/etc/profile.local</em> and add following line.</p>
+
+<pre>
+export JAVA_HOME=/usr/java/jdk1.6.0_14
+</pre>
+
+<p>That's it.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2009-06-08</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2009-06-08</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Linux, Java, JDK, SLES, Suse</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

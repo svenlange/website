@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Migrating a code base from one language to another</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/migrating-a-code-base-from-one-language-to-another/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Migrating a code base from one language to another</h1>
+
+<p itemprop="description">During 2012 I migrated a Xpand and Xtend1 code base to its successor Xtend2, today simply called <a href="http://www.eclipse.org/xtend/">Xtend</a>. During the project I made the folllowing experiences.</p>
+
+
+<ul>
+    <li>First try to clean up the old code base a little before starting to migrate! Small stuff will help already.
+        <ul>
+            <li>Talk to the developers involved in the project and ask for stuff that isnt used or needed anymore. There will be planty. And wasting time on this is just nonsense.</li>
+            <li>Try to find duplicated code.</li>
+            <li>Try to reduce the dependencies between classes, modules etc.</li>
+        </ul>
+    </li>
+    <li>Always have a running system while migrating. Use an adapter for example to iterativly replace the old system step by step with the new one until the migration is 100% completed.</li>
+    <li>Do small noninvasive changes. Migrate the smallest file with smallest possible impact first.</li>
+    <li>Write many tests to prove that the behavior of the migrated code is the same.</li>
+    <li><em><strong>Don't do any refactorings on your way!!!</strong></em> Don't do it! First successfully complete the migration and write lots of tests. Only afterwards do refactor the migrated code.</li>
+</ul>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-06-12</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-06-12</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Linux, Java, JDK, SLES, Suse</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

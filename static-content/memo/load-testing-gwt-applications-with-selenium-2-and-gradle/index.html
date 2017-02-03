@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Load testing GWT applications with Selenium 2 and Gradle</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/load-testing-gwt-applications-with-selenium-2-and-gradle/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Load testing GWT applications with Selenium 2 and Gradle</h1>
+
+<p itemprop="description">Load testing GWT applications with Selenium 2 and Gradle</p>
+
+
+<p>This post shows how to do a load test on a GWT 2.2 application that runs in production mode. Production mode means the application is deployed to a web server and only reachable through the HTTP protocol. It also means that <a href="https://developers.google.com/web-toolkit/doc/2.2/tutorial/RPC">GWT-RPC</a> is enabled for the communication between the server and its clients.</p>
+
+<p><a href="http://jakarta.apache.org/jmeter/">JMeter</a> is a very popular tool to do load tests on web applications. Unfortunately it is quite difficult to build a JMeter test plan when GWT-RPC is involved. The communication is very cryptic and building a test plan gets quite time consuming quickly.</p>
+
+<p>An alternative to JMeter is to run many <a href="http://seleniumhq.org/">Selenium</a> tests in <em>parallel </em>hitting on the application through the applications user interface. The following GWT load test is realized with Selenium 2.0 b2. The Gradle build automation tool is used to execute the Selenium tests in parallel, because as of this writing there is no release of Selenium 2 Grid. Selenium 1 Grid is not compatible with Selenium 2.</p>
+
+<p>As Selenium is not really the best tool to do load testing it is quite difficult to put a heavy load on an application server. This problem can be solved by running the tests on many distinct computers. One could for example fire up a couple of toasters in a cloud service like <a href="http://aws.amazon.com/ec2/">EC2</a> to employ some test clients.</p>
+
+<p>The following code shows a Gradle build file that executes a single JUnit test case several times in parallel.</p>
+
+<pre>
+    import org.gradle.api.file.FileTree;
+    import org.gradle.api.tasks.testing.Test;
+
+    apply plugin: 'groovy'
+
+    repositories {
+    mavenCentral()
+    }
+
+    dependencies {
+    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.7.10'
+    testCompile fileTree(dir: 'lib', includes: ['*.jar'])
+    }
+
+    class LoadTest extends Test {
+
+    FileTree getCandidateClassFiles() {
+    FileTree candidateClassFiles = super.getCandidateClassFiles()
+
+    11.times {
+    candidateClassFiles += super.getCandidateClassFiles()
+    }
+
+    return candidateClassFiles
+    }
+    }
+
+    task loadTest(type: LoadTest.class) {
+    maxParallelForks = 4
+    }
+</pre>
+
+
+<p>To trigger a load test the Gradle task <em>loadtest </em>must be executed. This starts 4 test cases in parallel, because the parameter maxParallelForks is set to 4. The task loadtest is of type LoadTest as you can see in line 28. The given class for the type is also defined in this Gradle build file and extends the default Gradle test class. In there the getCandidateClassFiles method is overridden in a way that the method not only returns every single test case only once but several times. In this example 11 times more than usually. Every single test case would be executed 12 times in total now – four at the same time.</p>
+
+<p>Writing a Selenium test case for a GWT applications is quite tricky. GWT can do a lot of fancy JavaScript in the frontend which has to be handled by the test implementation. The following code snippet is written in <a href="http://groovy.codehaus.org/">Groovy</a> and shows a helpful method that can be used to get DOM elements from the GWT application under test.</p>
+
+<pre>
+    RenderedWebElement findElement(By by) {
+    RenderedWebElement element = null
+    10.times {
+    try {
+    def temp = driver.findElement(by)
+    if (temp instanceof RenderedWebElement) {
+    if (temp.displayed) {
+    element = temp
+    }
+    }
+    } catch (org.openqa.selenium.NoSuchElementException e) {
+    println "sleep 1500ms - waiting for $by"
+    Thread.sleep(1500)
+    } catch (org.openqa.selenium.StaleElementReferenceException e) {
+    println "sleep 1500ms - Element '$by' is no longer attached to the DOM"
+    Thread.sleep(1500)
+    }
+    }
+    while (element != null && !element.enabled) {
+    println "sleep 700ms - waiting for $element to become enabled"
+    Thread.sleep(700)
+    }
+    return element
+    }
+</pre>
+
+<p>The findElement method repetitively tries (in this case 10 times) to find the desired element and also waits till the element is displayed and enabled. The element, for example a HTML checkbox, will be only returned when it is in the right state. Right means the test can make legal interactions with it.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2011-04-19</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2011-04-19</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Testing, Groovy, GWT, Load testing, Selenium 2</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

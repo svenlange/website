@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Version numbers in Maven</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/version-numbers-in-maven/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Version numbers in Maven</h1>
+
+<p itemprop="description">This memo explains the Apache Maven 3 version number schema.</p>
+
+
+<h2>Structure</h2>
+
+<p>
+    The Apache Maven 3 version schema has 5 properties.
+</p>
+<ol>
+    <li>Major version</li>
+    <li>Minor version</li>
+    <li>Incremental version</li>
+    <li>Build number</li>
+    <li>A Qualifier</li>
+</ol>
+
+<p>Format: MajorVersion [ . MinorVersion [ . IncrementalVersion ] ] [ - BuildNumber | Qualifier ]</p>
+<p>Where MajorVersion, MinorVersion, IncrementalVersion and BuildNumber are all numeric and Qualifier is a string.</p>
+<p>If your version number does not match this format, then the entire version number is treated as being the Qualifier.</p>
+
+<h2>Ordering Rules</h2>
+
+<h3>1. All versions with a qualifier are older than the same version without a qualifier</h3>
+<p>For example: 5.14-SNAPSHOT is older than 5.14.</p>
+<pre>
+assertOlderThen "5.14-SNAPSHOT", "5.14"
+</pre>
+
+<h3>2. Identical versions with different qualifier fields are compared by using basic string comparison</h3>
+<p>For example: 5.14-beta-2 is newer than 5.14-alpha-6.</p>
+<pre>
+assertNewerThen "5.14-beta-2", "5.14-alpha-6"
+</pre>
+
+<h3>3. Versions are case insensitive</h3>
+<p>Internally all version strings are transformed to lower case. (With java.lang.String#toLowerCase(Locale.ENGLISH))</p>
+<pre>
+assertEquals "5.14-HELLO-SNAPSHOT", "5.14-hello-snapshot"
+</pre>
+
+<h3>4. '-' (dash) and '.' (dot) separators can be mixed</h3>
+<p>It does't matter if you use a dash or a dot to separate the version properties.</p>
+<pre>
+assertEquals "1.0", "1-0" // (1) == (1)
+assertEquals "1-0.0", "1.0-0"  // (1) == (1)
+</pre>
+
+<h3>5. A dash is always less important than something preceded with a dot</h3>
+<pre>
+assertOlderThen "1-2", "1.2" // (1,(2)) < (1,2)
+assertOlderThen "1.1.1-1.1", "1.1.1.1-1.1" // (1,1,1,(1,1)) < (1,1,1,1,(1,1))
+</pre>
+
+<h3>6. Transition between characters and digits also constitutes a separator</h3>
+<pre>
+assertEquals "1.0alpha1", "1.0.alpha-1"
+</pre>
+
+<h3>7. Version components in the text can be digits or strings</h3>
+<pre>
+assertOlderThen "a.2.a", "a.2.b" // (a,2,a) < (a,2,b)
+assertOlderThen "a.a.a-SNAPSHOT", "a.a.b" // (a,a,a,snapshot) < (a,a,b)
+assertEquals "a.a.a", "a.a.a" // (a,a,a) == (a,a,a)
+assertNewerThen "a.z.a", "a.a.a" // (a,z,a) > (a,a,a)
+</pre>
+
+<h2>Special Qualifiers</h2>
+<p>Maven versions can contain special qualifiers.</p>
+<pre>
+assertEquals '1ga', '1final'
+assertEquals "1-0.0.GA", "1-0.0-final"
+assertEquals '1ga', '1'
+assertEquals "1final", "1"
+assertEquals "1cr", "1rc"
+assertEquals "1a1", "1alpha1"
+assertEquals "1b2", "1beta2"
+assertEquals "1m3", "1milestone3"
+</pre>
+
+<h2>References</h2>
+<ol>
+    <li>
+        <a href="http://maven.apache.org/ref/3.0.5/maven-artifact/apidocs/org/apache/maven/artifact/versioning/ComparableVersion.html">http://maven.apache.org/ref/3.0.5/maven-artifact/apidocs/org/apache/maven/artifact/versioning/ComparableVersion.html</a>
+    </li>
+    <li>
+        <a href="http://mojo.codehaus.org/versions-maven-plugin/version-rules.html">http://mojo.codehaus.org/versions-maven-plugin/version-rules.html</a>
+    </li>
+    <li>
+        <a href="http://docs.codehaus.org/display/MAVEN/Versioning">http://docs.codehaus.org/display/MAVEN/Versioning</a>
+    </li>
+    <li>
+        <a href="https://git-wip-us.apache.org/repos/asf?p=maven.git;a=blob;f=maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ArtifactVersion.java;hb=HEAD">https://git-wip-us.apache.org/repos/asf?p=maven.git;a=blob;f=maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ArtifactVersion.java;hb=HEAD</a>
+    </li>
+    <li><a href="http://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm">http://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm</a>
+    </li>
+</ol>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2014-09-01</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2014-09-01</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Maven, Versioning</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

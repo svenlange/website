@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Patching JARs with the help of Eclipse</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/patching-jars-with-the-help-of-eclipse/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Patching JARs with the help of Eclipse</h1>
+
+<p itemprop="description">This post shows how to patch an existing Java Archive (JAR) to add new functionality to it or change its behavior. This for example can be helpful to add some logging for debugging purposes.</p>
+
+
+<ul>
+    <li>Open Eclipse</li>
+    <li>Import 'Plug-ins and Fragments' into Workspace</li>
+    <li>Under 'Import As' mark 'Projects with source folder'</li>
+    <li>Next</li>
+    <li>Chose the project you want to modify (Target platform)</li>
+    <li>Locate the source file in the workspace/project and modify it</li>
+    <li>Save changes</li>
+    <li>Now do a right-click on the file to figure out where it is located</li>
+    <li>Leave Eclipse and go to the command line and 'cd' into the Eclipse workspace</li>
+    <li>cd into 'bin' and execute the following command</li>
+</ul>
+
+<pre>
+$ jar uvf theJarFile.jar ./com/example/etc/ModifiedJava*
+</pre>
+
+<p>Now it is possible to see the new logging stuff or whatever you did to the Java class. Be aware that this might cause severe problems or side effects in case someone else is depending on this file. ;-)</p>
+
+<p>The following snippet helps to find a particular class file within a big junk of JAR files. This might help if you want to scan a local Maven repository.</p>
+
+<pre>
+find . -name *.jar | while read jarName; do echo "JAR: " $jarName; jar tf $jarName; done | grep "JAR:\|TheJavaFileIAmLookingFor.class" --color=always
+</pre>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-02-07</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-02-07</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Trench, Eclipse, JAR, Java, Patch</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

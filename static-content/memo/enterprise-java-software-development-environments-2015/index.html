@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Enterprise Java software development environments 2015</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/enterprise-java-software-development-environments-2015/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <header>
+    <a href="/">Home</a>
+</header>
+
+            <h1 itemprop="headline">Enterprise Java software development environments 2015</h1>
+
+            <p itemprop="description">This memo lists tools, frameworks and techniques that are in use in the year 2015 by Software development teams. The focus is on Java dev teams.</p>
+
+            <h2>Developer tooling</h2>
+            <ul>
+                <li>JetBrains IntelliJ IDEA</li>
+                <li>Eclipse</li>
+                <li>Microsoft Visual Studio</li>
+            </ul>
+
+            <h2>Version control systems</h2>
+            <ul>
+                <li>git</li>
+                <li>mercurial</li>
+                <li>subversion</li>
+            </ul>
+
+            <h2>Build</h2>
+
+            <h3>Dependency management</h3>
+            <ul>
+                <li>Apache Maven / <a href="http://www.sonatype.org/nexus/">Sonatype Nexus</a> / <a href="https://www.jfrog.com/artifactory/">JFrog Artifactory</a></li>
+                <li>Apache Ivy</li>
+                <li>OSGi</li>
+                <li><a href="https://gradle.org">Gradle</a></li>
+            </ul>
+
+            <h3>Continuous integration</h3>
+            <ul>
+                <li>Jenkins</li>
+                <li>TeamCity</li>
+                <li>Microsoft Team Foundation Server</li>
+                <li>Bamboo</li>
+            </ul>
+
+            <h2>Configuration management</h2>
+
+            <ul>
+                <li>Spring Cloud</li>
+                <li><a href="https://www.consul.io/">Consul</a></li>
+                <li><a href="http://www.togglz.org/">Togglz</a> (Config changes during runtime)</li>
+                <li><a href="https://github.com/Netflix/archaius">Netflix Archaius</a> (Config changes during runtime)</li>
+            </ul>
+
+            <h2>Team collaboration</h2>
+            <ul>
+                <li>E-Mail</li>
+                <li><a href="https://slack.com/">Slack</a></li>
+                <li>Jabber</li>
+                <li>Skype</li>
+                <li>Yammer</li>
+            </ul>
+
+            <h2>Automated tests</h2>
+
+            <h3>Load tests</h3>
+            <blockquote><a href="https://twitter.com/PatrickMcFadin/status/682228230368014337">Patrick McFadin: "It’s not ready until you break it a few times."</a></blockquote>
+            <p>It is important to run automated load tests regularly and before every release to ensure all performance requirements are always fulfilled.</p>
+            <ul>
+                <li><a href="http://jmeter.apache.org/">Apache JMeter</a></li>
+                <li><a href="http://gatling.io">Gatling</a></li>
+            </ul>
+
+            <h3>Mutation testing</h3>
+            <ul>
+                <li><a href="http://pitest.org/">PIT or Pitest</a> (Bytecode-based mutation testing tool for Java)</li>
+            </ul>
+
+            <h3>Property-based testing </h3>
+            <ul>
+                <li><a href="http://www.scalacheck.org/">ScalaCheck</a></li>
+            </ul>
+
+
+            <h2>Quality Assurence</h2>
+
+            <p>SonarQube</p>
+
+            <h2>Monitoring</h2>
+
+            <p>It is important to monitor that ...</p>
+
+            <ul>
+                <li>all services are available 24/7</li>
+                <li>the hardware is flawless and in a non-critical workload (CPUs/Memory/...)</li>
+                <li>there are no network problems and that there is always enough bandwidth (in/out)</li>
+            </ul>
+
+            <p>The following tools help to monitor if everthing is running properly.</p>
+            <ul>
+                <li>Nagios</li>
+                <li><a href="http://www.zabbix.com/">Zabbix</a></li>
+                <li>Container/Docker World: <a href="https://github.com/google/cadvisor">Google cAdvisor</a></li>
+            </ul>
+
+            <h2>Logging</h2>
+            <ul>
+                <li><a href="https://github.com/elastic/elasticsearch">Elasticsearch</a>, <a href="https://github.com/elastic/logstash">Logstash</a> and <a href="https://github.com/elastic/kibana">Kibana</a> (ELK Stack)</li>
+                <li>Graylog</li>
+                <li>Airbrake (SaaS)</li>
+            </ul>
+
+            <h2>Deployment</h2>
+
+            <p>Cloud, Provisioning, Docker</p>
+            <ul>
+                <li>Ansible</li>
+                <li>Capistrano</li>
+                <li><a href="https://cfengine.com/">CFEngine</a></li>
+            </ul>
+
+
+            <hr/>
+            <p>
+                <small>Date published: <span itemprop="datePublished">2015-10-26</span></small>
+                <br/>
+                <small>Date modified: <span itemprop="dateModified">2016-02-15</span></small>
+                <br/>
+                <small>Keywords: <span itemprop="keywords">software</span></small>
+            </p>
+
+            <footer></footer>
+        </div>
+    </div>
+</div>
+</body>
+</html>

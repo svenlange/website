@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Sort by date time in Grails App with Oracle DB</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/sort-by-date-time-in-grails-app-with-oracle-db/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Sort by date time in Grails App with Oracle DB</h1>
+
+<p>Lets say you have a domain class like the following in your Grails app and you want to list all those persons by the time that is included in the date property birthday.</p>
+
+<pre>
+class Person {
+  String name
+  Date birthday
+}
+</pre>
+
+<p>Of cause you could just use Person.list() and write some further code to sort the result, but here I use a single slick and neat HQL line.</p>
+
+<pre>
+class PersonController {
+  def list = {
+    [p: Person.findAll("from Person order by hour(birthday), minute(birthday)")]
+  }
+}
+</pre>
+
+So far so good. But if you are using an Oracle database you get to see something like this:
+<pre>
+Hibernate operation: could not execute query;
+uncategorized SQLException for SQL [...] ...
+nested exception is java.sql.SQLException:
+ORA-30076: invalid extract field for extract source
+</pre>
+
+<p>Unfortunatly Oracles Date Data type is not accurate enough [1] and so the Hibernate functions hour() and minute() doesnt work. To get around this problem map the birthday property to the database type timestamp.</p>
+
+<pre>
+class Person {
+
+  static mapping = {
+    birthday sqlType: 'timestamp'
+  }
+
+  String name
+  Date birthday
+}
+</pre>
+
+<p>If you add the mapping above everything works also with your Oracle db. Note that I used <span style="font-weight:bold;">sqlType</span> and not type to define the data type.</p>
+
+<h4>References</h4>
+[1] Charles Miller, <a href="http://fishbowl.pastiche.org/2005/07/13/hibernate_oracle_and_dates_a_story">Hibernate, Oracle and Dates. A Story.</a> (2005)
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2009-05-11</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2009-05-11</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Grails, Oracle, date, timestamp</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

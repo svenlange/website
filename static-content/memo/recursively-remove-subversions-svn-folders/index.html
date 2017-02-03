@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Recursively remove Subversions svn folders</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/recursively-remove-subversions-svn-folders/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Recursively remove Subversions .svn folders</h1>
+
+<p itemprop="description">How to recursively remove Subversions .svn folders</p>
+
+
+<p>To remove all the sometimes pretty annoying <em>.svn</em> folders here are some very helpful lines of code.</p>
+
+<pre>
+for /f "tokens=* delims=" %%i in ('dir /s /b /a:d *svn') do (
+    rd /s /q "%%i"
+)
+</pre>
+
+<p>Just place the above lines into a file called <strong>removeSvn.cmd</strong>, place it into the polluted folder and run it.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-02-04</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-02-04</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Versioning, Subversion</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

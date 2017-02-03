@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Why use continuous integration</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/why-use-continuous-integration/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Why use continuous integration</h1>
+
+<p>Again and again I see myself in annoying long discussions about putting up a CI for projects or not. I guess many people already wrote about exactly the same thing, but i want to sum up all the pros and cons here for myself.</p>
+
+<p>Pro:</p>
+<ul>
+    <li>The CI builds on a dedicated system
+        <ul>
+            <li>Not checked in files lead to a failing build</li>
+            <li>The build server usually is building and running its test on a system that is very similar to the production system. This can prevent you from very nasty bugs that appear while you are trying to depoly your software on a production machine</li>
+        </ul>
+    </li>
+    <li>Statistics and history
+        <ul>
+            <li>One can see how stable a certain test is</li>
+            <li>Which developer causes the most trouble by not properbly checking in its code</li>
+        </ul>
+    </li>
+    <li>Nightly stage
+        <ul>
+            <li>A customer or product owner can see the software evolving in almost real time</li>
+        </ul>
+    </li>
+</ul>
+
+<p>Con:</p>
+<ul>
+    <li>The CI server needs some hardware and someone to set everything up and keep the CI running</li>
+</ul>
+
+<p>In my optinion a CI server is not only for teams. Even if the development team consists of a single person a CI gives you a lot of benefits as listed above.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-07-12</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-07-12</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">CI, Continuous Integration</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

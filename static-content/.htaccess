@@ -1,0 +1,42 @@
+Redirect 301 /2014/04/manual-oracle-jdk-installation-on-ubuntu /memo/manual-oracle-jdk-installation-on-ubuntu/
+Redirect 301 /2014/01/upgrade-subversion-on-ubuntu-12-04-lts /memo/upgrade-subversion-on-ubuntu-12_04/
+Redirect 301 /2013/12/xtend2-compared-to-xpand /memo/xtend2-compared-to-xpand/
+Redirect 301 /2013/10/howto-print-debug-information-to-console-with-xpand-and-xtend /memo/how-to-print-debug-information-to-console-with-xpand-and-xtend1/
+Redirect 301 /2013/09/add-2560x1440-resolution-for-dell-u2713h-monitor-under-ubuntu-13-04-connected-over-hdmi /memo/add-2560x1440-resolution-for-dell-u2713h-monitor-under-ubuntu-13_04-connected-over-hdmi/
+Redirect 301 /2013/06/migrating-a-code-base-from-one-language-to-another /memo/migrating-a-code-base-from-one-language-to-another/
+Redirect 301 /2013/03/intellij-idea-xtend-plugin /memo/intellij-idea-xtend-plugin/
+Redirect 301 /2013/02/patching-jars-with-the-help-of-eclipse /memo/patching-jars-with-the-help-of-eclipse/
+Redirect 301 /2013/01/avoid-name-collision-in-ecore-generated-from-xsd /memo/avoid-name-collision-in-ecore-generated-from-xsd/
+Redirect 301 /2012/09/xtend2-lambda-expression-type-definitions-with-and-without-any-syntactic-sugar /memo/xtend-lambda-expression-type-definitions-with-and-without-syntactic-sugar/
+Redirect 301 /2011/04/load-testing-gwt-applications-with-selenium-2-and-gradle /memo/load-testing-gwt-applications-with-selenium-2-and-gradle/
+Redirect 301 /2011/02/google-go-websocket-server-and-smoothie-charts-client /memo/google-go-websocket-server-and-smoothie-charts-client/
+Redirect 301 /2011/02/fosdem-2011 /memo/fosdem-2011/
+Redirect 301 /2011/01/subversion-client-for-windows /memo/subversion-client-for-windows/
+Redirect 301 /2010/12/yuml-is-only-for-simple-uml-class-diagrams /memo/yuml-is-only-for-simple-uml-class-diagrams/
+Redirect 301 /2010/12/remove-user-from-cache-in-grails-app-using-acegi-plugin /memo/remove-user-from-cache-in-grails-app-using-acegi-plugin/
+Redirect 301 /2010/11/silverlight-testing-landscape /memo/silverlight-testing-landscape/
+Redirect 301 /2010/10/jaoo-2010 /memo/jaoo-2010/
+Redirect 301 /2010/08/html5-offline-capabilities-for-web-applications /memo/html5-offline-capabilities-for-web-applications/
+Redirect 301 /2010/02/disable-ehcaches-updatechecker-in-grails-application /memo/disable-ehcaches-updatechecker-in-grails-application/
+Redirect 301 /2010/02/recursively-remove-subversions-svn-folders /memo/recursively-remove-subversions-svn-folders/
+Redirect 301 /2010/01/generating-uml-class-diagrams-from-grails-domain-model /memo/generating-uml-class-diagrams-from-grails-domain-model/
+Redirect 301 /2010/01/give-the-tomcat-a-bit-more-memory /memo/give-the-tomcat-a-bit-more-memory/
+Redirect 301 /2009/06/manually-install-jdk-6-on-suse-linux-enterpise-edition-10-sp2 /memo/manually-install-jdk-6-on-suse-linux-enterpise-edition-10-sp2/
+Redirect 301 /2008/07/using-storexpath-in-your-grails-webtest /memo/using-storexpath-in-your-grails-webtest/
+Redirect 301 /memo/global-day-of-coderetreat-2014 /memo/global-day-of-coderetreat-2014-in-berlin/
+Redirect 301 /memo/add-2560x1440-resolution-for-dell-u2713h-monitor-under-ubuntu-13_04-connected-over-hdmi /memo/add-2560x1440-resolution-for-dell-u2713h-monitor-under-ubuntu
+
+Redirect 301 /wp-content/uploads/cv_sven-lange.pdf /cv_sven-lange.pdf
+Redirect 301 /about /
+Redirect 301 /author/admin /
+RedirectMatch 301 /memoranda/(.*) /memo/$1
+
+Redirect 410 /projects
+RedirectMatch 410 /tag/.*
+RedirectMatch 410 /category/.*
+RedirectMatch 410 /page/.*
+RedirectMatch 410 .*/comment-page-.*
+
+RewriteEngine On
+RewriteCond %{query_STRING} ^(p=80)(.*)$
+RewriteRule ^$ http://www.svenlange.co.za/memo/generating-uml-class-diagrams-from-grails-domain-model? [R=301,L]

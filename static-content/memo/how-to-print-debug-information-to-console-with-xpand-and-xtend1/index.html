@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>How to print debug information to console with Xpand and Xtend1</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/how-to-print-debug-information-to-console-with-xpand-and-xtend1/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">How to print debug information to console with Xpand and Xtend1</h1>
+
+<p itemprop="description">This memo describes how to print debug information to the console with Xpand and Xtend1</p>
+
+
+<p>During the development of Xpand templates and Xtend files it is sometimes useful to print information to the console. The Eclipse plugin <em>org.eclipse.xtend.util.stdlib</em> helps with this. To be able to print to the console just add the dependency</p>
+
+<pre>org.eclipse.xtend.util.stdlib</pre>
+
+<p>to your project like in the following figure.</p>
+
+<img alt="Eclipse Dependency Manager" src="/memo/how-to-print-debug-information-to-console-with-xpand-and-xtend1/eclipseStdlibDependency.jpg" width="571" height="344" />
+
+<p>Afterwards Xpand files need the following line of code.</p>
+
+<pre>
+«EXTENSION org::eclipse::xtend::util::stdlib::io»
+</pre>
+
+<p>Xtend files need the following line of code.</p>
+
+<pre>
+extension org::eclipse::xtend::util::stdlib::io;
+
+String doSomething(String str) :
+info("HALLO") ->
+collection.select( e | e.name == str)).first().info();
+</pre>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-10-28</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-10-28</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Trench, Console, Xpand, Xtend</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

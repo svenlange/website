@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Xtend2 compared to Xpand</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/xtend2-compared-to-xpand/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Xtend2 compared to Xpand</h1>
+
+<p itemprop="description">Within the past two years I was working on two Xpand to Xtend2 migration projects. In this post I sum up some of the experiences I made with the two generator template languages. The experiences are based on Xpand 1.2.1 and Xtend 2.4.1.</p>
+
+
+<h2>Xtend2 good parts</h2>
+
+<p>It is possible to debug Xtend templates in Eclipse. This is a very helpful feature and was not possible with Xpand before. The overall tool support for Xtend is better.</p>
+
+<p>It is no more necessary to learn two or three languages. Instead of coding in Xpand, Xtend1 and Check it is possible to simply use Xtend for everything. Xtend is a very nice, concise and powerful language and by far not so boilerplate like Java. Actually Xtend is a GPL and could be used as a replacement to Java.</p>
+
+<p>Generating with Xtend is a magnitude faster than generating with Xpand. The Xtend compiler is quite slow, but if Xtend is already compiled to Java, a generation process will run very quickly. Xtend templates are compiled to Java in advance and not interpreted like the Xpand templates.</p>
+
+<p>Another benefit is that generating with Xtend templates results in a way cleaner output. There are no more endless unwanted empty lines or whitespaces in the generated end results. The output is usually very well formatted and there is no extra formatter required.</p>
+
+<p>But be aware, there are also some bad parts...</p>
+
+<h2>The not so good parts of Xtend2</h2>
+
+<p>So far editing Xtend 2 in Eclipse is still darn slow. And the editor itself provides not much tool support. It is better then the tool support for Xpand, but there are almost no refactoring’s. The few simple refactoring’s that are provided are very unreliable and produce Exceptions. If there were no code completion and syntax/error highlighting I would recommend using a simple Text editor instead of Eclipse.</p>
+<h2>Final words</h2>
+
+<p>Xtend is a great language. Java developers will love it. Maybe some day the IDE support in Eclipse is better and the compiler faster. Then I guess Xtend will receive a lot more attention and adoption. The language on its own has a lot of potential and I like its syntax over Groovys, Scalas or Javas syntax.</p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-12-09</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-12-09</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Languages, Xpand, Xtend</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

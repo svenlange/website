@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Add 2560x1440 resolution for Dell U2713H monitor under Ubuntu</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/add-2560×1440-resolution-for-dell-u2713h-monitor-under-ubuntu/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Add 2560×1440 resolution for Dell U2713H monitor under Ubuntu 13.04 connected over HDMI</h1>
+
+<p itemprop="description">This post describes how to configure Ubuntu 13.04 for a Dell U2713H monitor with a 2560x1440 resolution. It also works for Ubuntu 13.10.</p>
+
+
+<p>Open a terminal and execute.</p>
+
+<pre>
+cvt 2560 1440 60
+</pre>
+
+<p>The resulting output on the console is needed to create a new monitor resolution setting and might look like the following.</p>
+
+<pre>
+sven@c:~$ cvt 2560 1440 60
+# 2560x1440 59.96 Hz (CVT 3.69M9) hsync: 89.52 kHz; pclk: 312.25 MHz
+Modeline "2560x1440_60.00"  312.25  2560 2752 3024 3488  1440 1443 1448 1493 -hsync +vsync
+</pre>
+
+<p>Create a new file <code>/usr/share/dell-u2713h.sh</code> with the following content.</p>
+
+<pre>
+xrandr --newmode 2560x1440 312.25  2560 2752 3024 3488  1440 1443 1448 1493 -hsync +vsync
+xrandr --addmode HDMI2 2560x1440
+</pre>
+
+<p>Make the file executable.</p>
+
+<pre>
+sudo chmod +x /usr/share/dell-u2713h.sh
+</pre>
+
+<p>The last step is to add the following line to the end of the file <code>/etc/lightdm/lightdm.conf</code></p>
+
+<pre>
+session-setup-script=/usr/share/dell-u2713h.sh
+</pre>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2013-09-23</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2013-09-23</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Trench, hdmi, resolution, ubuntu</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>

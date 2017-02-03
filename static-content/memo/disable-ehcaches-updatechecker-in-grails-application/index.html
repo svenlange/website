@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Sven Lange"/>
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>Disable Ehcaches UpdateChecker in Grails application</title>
+    <link rel="canonical" href="http://svenlange.co.za/memo/disable-ehcaches-updatechecker-in-grails-application/"/>
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+<div class="container"><div class="row"><div class="col-xs-12">
+
+<header>
+    <a href="/">Home</a>
+</header>
+
+<h1 itemprop="headline">Disable Ehcaches UpdateChecker in Grails application</h1>
+
+<p itemprop="description">This memo shows how to disable Ehcaches UpdateChecker in Grails applications</p>
+
+
+<p>I found it pretty annoying that Ehcache always reminded me that there is an update to a newer version of its framework available. After searching the web I found an <a href="http://forums.terracotta.org/forums/posts/list/2793.page">interesting thread in the Terracotta forum</a> saying that the <a href="http://ehcache.org/apidocs/net/sf/ehcache/util/UpdateChecker.html">UpdateChecker</a> is not only looking for updates. In addition it also submits information about the applications environment to Terracotta by default. And that is not a good thing in my opinion.</p>
+
+<p>Here you can see youself: <a href="http://svn.terracotta.org/svn/ehcache/tags/ehcache-1.7.1/core/src/main/java/net/sf/ehcache/util/UpdateChecker.java">http://svn.terracotta.org/svn/ehcache/tags/ehcache-1.7.1/core/src/main/java/net/sf/ehcache/util/UpdateChecker.java</a></p>
+
+<p>Fortunately you can disable this behavior by adding an Ehcache configuration to your Grails application. I have tested this with a Grails 1.2.0 application which includes Ehcache 1.7.1.</p>
+
+<p>Simply place an ehcache.xml file in your <em>&lt;app-root&gt;/grails-app/conf</em> folder containing your Ehcache configuration. For this post I am using the configuration that ships with Ehcache as default (ehcache-failsafe.xml) and modify it.</p>
+
+
+<pre>
+&lt;ehcache xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;ehcache.xsd&quot; updateCheck=&quot;false&quot;&gt;
+  &lt;diskStore path=&quot;java.io.tmpdir&quot;/&gt;
+  &lt;defaultCache
+    maxElementsInMemory=&quot;10000&quot;
+    eternal=&quot;false&quot;
+    timeToIdleSeconds=&quot;120&quot;
+    timeToLiveSeconds=&quot;120&quot;
+    overflowToDisk=&quot;true&quot;
+    maxElementsOnDisk=&quot;10000000&quot;
+    diskPersistent=&quot;false&quot;
+    diskExpiryThreadIntervalSeconds=&quot;120&quot;
+    memoryStoreEvictionPolicy=&quot;LRU&quot;
+  /&gt;
+&lt;/ehcache&gt;
+</pre>
+
+<p>With the attribute <em>updateCheck="false"</em> in the root tag the haunting is gone.</p>
+
+<p>XML Schema for Ehcache config can be found here: <a href="http://ehcache.org/ehcache.xsd">http://ehcache.org/ehcache.xsd</a></p>
+
+<p>More Information about Ehcache configuration: <a href="http://ehcache.org/documentation/configuration.html">http://ehcache.org/documentation/configuration.html</a></p>
+
+<hr/>
+<p>
+    <small>Date published: <span itemprop="datePublished">2010-02-27</span></small><br/>
+    <small>Date modified: <span itemprop="dateModified">2010-02-27</span></small><br/>
+    <small>Keywords: <span itemprop="keywords">Grails, Ehcache, UpdateChecker</span></small>
+</p>
+
+<footer></footer>
+</div></div></div>
+</body>
+</html>
